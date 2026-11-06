@@ -1,5 +1,5 @@
 {
-    "name": "@litium-translation-sync/root",
+    "name": "@litium-cli/root",
     "version": "0.0.0",
     "description": "a small helper to sync translations into yaml files ",
     "private": true,
@@ -26,7 +26,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/henry/litium-translation-sync.git"
+        "url": "git+https://github.com/onkelhoy/litium-cli.git"
     },
     "workspaces": [
         "packages/**/*",

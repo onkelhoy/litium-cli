@@ -1,0 +1,77 @@
+{
+  "name": "@litium-cli/translation",
+  "description": "Pull Litium pages, blocks and translations into Excel, push Excel back into project yaml",
+  "keywords": [
+    "papit",
+    "node",
+    "typescript",
+    "translation"
+  ],
+  "version": "0.0.1",
+  "scripts": {
+    "build": "npx @papit/build --error",
+    "watch": "tsc -w",
+    "start": "npm run build -- --dev && node ./lib/bundle.js",
+    "test": "node --test tests/**/*.test.js",
+    "test:only": "node --test --test-only tests/**/*.test.js",
+    "preversion": "papit-version",
+    "postversion": "papit-version",
+    "component": "npm create @papit -- --component"
+  },
+  "main": "./lib/bundle.js",
+  "types": "./lib/bundle.d.ts",
+  "type": "module",
+  "files": [
+    "asset/",
+    "lib/"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/bundle.js",
+      "types": "./lib/bundle.d.ts"
+    }
+  },
+  "author": "henry",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/onkelhoy/litium-cli/tree/main/packages/translation",
+  "bugs": {
+    "url": "https://github.com/onkelhoy/litium-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onkelhoy/litium-cli.git",
+    "directory": "packages/translation"
+  },
+  "sideEffects": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@papit/arguments": "0.0.2",
+    "@papit/terminal": "0.0.3",
+    "exceljs": "^4.4.0",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "typescript": "5.9.3"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not dead"
+  ],
+  "papit": {
+    "publish": true,
+    "type": "node",
+    "main": "translation"
+  },
+  "bin": {
+    "litium-translation": "lib/bin.js"
+  }
+}
