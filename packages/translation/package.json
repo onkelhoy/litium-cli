@@ -1,13 +1,13 @@
 {
   "name": "@litium-cli/translation",
-  "description": "Pull Litium pages, blocks and translations into Excel, push Excel back into project yaml",
+  "description": "Pull Litium translations, pages, blocks and products into Excel, push Excel back into project yaml",
   "keywords": [
     "papit",
     "node",
     "typescript",
     "translation"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "build": "npx @papit/build --error",
     "watch": "tsc -w",
@@ -73,5 +73,6 @@
   },
   "bin": {
     "litium-translation": "lib/bin.js"
-  }
+  },
+  "remoteVersion": "0.0.1"
 }

@@ -9,6 +9,7 @@ const ROOTS = {
     texts: "websiteTexts",
     blocks: { templates: "blockTemplates", fields: "blockFields" },
     pages: { templates: "websiteTemplates", fields: "websiteFields" },
+    products: { templates: "productTemplates", fields: "productFields" },
 } as const;
 
 export type Target = { file: YamlFile; node: YAMLMap };
@@ -16,8 +17,8 @@ export type Target = { file: YamlFile; node: YAMLMap };
 export class Project {
     files: YamlFile[] = [];
     texts = new Map<string, { file: YamlFile; parent: YAMLMap }>();
-    templates = { blocks: new Map<string, Target>(), pages: new Map<string, Target>() };
-    fields = { blocks: new Map<string, Target>(), pages: new Map<string, Target>() };
+    templates = { blocks: new Map<string, Target>(), pages: new Map<string, Target>(), products: new Map<string, Target>() };
+    fields = { blocks: new Map<string, Target>(), pages: new Map<string, Target>(), products: new Map<string, Target>() };
     newTexts?: YamlFile;
 
     constructor(readonly litium: string) {
@@ -37,7 +38,7 @@ export class Project {
         const texts = root.get(ROOTS.texts);
         if (inTranslations && isMap(texts)) for (const p of texts.items) this.texts.set(String((p.key as any)?.value ?? p.key), { file: yf, parent: texts });
 
-        for (const area of ["blocks", "pages"] as const) {
+        for (const area of ["blocks", "pages", "products"] as const) {
             const addAll = (key: string, into: Map<string, Target>, filter?: (n: YAMLMap) => boolean) => {
                 const seq = root.get(key);
                 if (!isSeq(seq)) return;

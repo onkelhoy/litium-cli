@@ -10,6 +10,8 @@ export const ENDPOINTS = {
     pageFields: "/Litium/api/admin/websites/fieldDefinitions",
     blockTemplates: "/Litium/api/admin/blocks/fieldTemplates",
     blockFields: "/Litium/api/admin/blocks/fieldDefinitions",
+    productTemplates: "/Litium/api/admin/products/fieldTemplates",
+    productFields: "/Litium/api/admin/products/fieldDefinitions",
 } as const;
 
 const list = <T>(r: any): T[] => (Array.isArray(r) ? r : r?.items ?? []);
@@ -23,9 +25,10 @@ export async function fetchSnapshot(api: LitiumApi, update: (t: string) => void)
     const website = await pickWebsite(websites);
 
     update("templates and fields");
-    const [pageTemplates, pageFields, blockTemplates, blockFields] = await Promise.all([
+    const [pageTemplates, pageFields, blockTemplates, blockFields, productTemplates, productFields] = await Promise.all([
         api.get(ENDPOINTS.pageTemplates), api.get(ENDPOINTS.pageFields),
         api.get(ENDPOINTS.blockTemplates), api.get(ENDPOINTS.blockFields),
+        api.get(ENDPOINTS.productTemplates), api.get(ENDPOINTS.productFields),
     ]);
 
     return {
@@ -35,8 +38,9 @@ export async function fetchSnapshot(api: LitiumApi, update: (t: string) => void)
             // websites/fieldTemplates also holds the WebsiteFieldTemplate, only pages wanted
             pages: list<FieldTemplate>(pageTemplates).filter(t => !t.$type || /PageFieldTemplate/.test(t.$type)),
             blocks: list<FieldTemplate>(blockTemplates),
+            products: list<FieldTemplate>(productTemplates),
         },
-        fields: { pages: list<FieldDefinition>(pageFields), blocks: list<FieldDefinition>(blockFields) },
+        fields: { pages: list<FieldDefinition>(pageFields), blocks: list<FieldDefinition>(blockFields), products: list<FieldDefinition>(productFields) },
     };
 }
 

@@ -1,6 +1,6 @@
 # @litium-cli/translation
 
-Pull Litium pages, blocks and translations into Excel, push Excel back into project yaml
+Pull Litium translations, pages, blocks and products into Excel, push Excel back into project yaml
 
 ![Logo](https://raw.githubusercontent.com/henry/litium-translation-sync/refs/heads/main/asset/logo.svg)
 
@@ -39,7 +39,7 @@ See the [LICENSE](https://github.com/onkelhoy/papit/blob/main/LICENSE) file for 
 | `--url=<url>` | pull, inspect | Litium backend url. Prompted when missing. |
 | `--client-id=<id>` | pull, inspect | API client id. Prompted when missing. |
 | `--client-secret=<secret>` | pull, inspect | API client secret. Prompted when missing. |
-| `--include=<list>` | pull | `translations,blocks,pages` (default all). |
+| `--include=<list>` | pull | `translations,blocks,pages,products` (default all). |
 | `--website=<id\|name>` | pull | Website for translations, prompted when there are several. |
 | `--system-fields` | pull | Also include Litium system fields (`_name`, `_url` …). |
 | `--out=<path>` | pull, inspect | Excel file (pull) or folder for raw dumps (inspect, default `./inspect`). |

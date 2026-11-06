@@ -7,7 +7,7 @@ import { fetchSnapshot } from "../litium";
 import { toRows } from "../rows";
 import { writeExcel } from "../excel";
 
-const KINDS = ["translations", "blocks", "pages"] as const;
+const KINDS = ["translations", "blocks", "pages", "products"] as const;
 
 export async function pull() {
     const api = new LitiumApi(await getCredentials());

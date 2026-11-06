@@ -9,7 +9,10 @@ export type Language = { id: string; systemId: string };
 export type Website = { systemId: string; texts?: Record<string, Localized>; fields?: { _name?: Localized } };
 
 export type FieldGroup = { id: string; fields?: string[]; localizations?: Record<string, { name?: string; description?: string }> };
-export type FieldTemplate = { $type?: string; id: string; systemId: string; fields?: { _name?: Localized; _description?: Localized }; fieldGroups?: FieldGroup[] };
+export type FieldTemplate = { $type?: string; id: string; systemId: string; fields?: { _name?: Localized; _description?: Localized }; [groups: string]: any };
+
+// Group lists on templates: pages/blocks use fieldGroups, products use product/variant/category.
+export const GROUP_PROPS = ["fieldGroups", "productFieldGroups", "variantFieldGroups", "categoryFieldGroups"] as const;
 
 export type OptionItem = { value: string; name?: Localized };
 export type FieldDefinition = {
@@ -19,7 +22,8 @@ export type FieldDefinition = {
     fields?: { _name?: Localized; _description?: Localized; _option?: { "*"?: { items?: OptionItem[] } } };
 };
 
-export type Area = "blocks" | "pages";
+export const AREAS = ["blocks", "pages", "products"] as const;
+export type Area = typeof AREAS[number];
 export type Snapshot = {
     languages: string[];
     texts: Record<string, Localized>;

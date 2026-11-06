@@ -1,5 +1,5 @@
 import { isMap, isSeq, YAMLMap, YAMLSeq } from "yaml";
-import type { Localized, Row } from "./types";
+import { AREAS, GROUP_PROPS, type Area, type Localized, type Row } from "./types";
 import type { Project, YamlFile } from "./project";
 
 export type Change =
@@ -53,8 +53,8 @@ export function applyRows(project: Project, rows: Row[], languages: string[], op
             continue;
         }
 
-        if (head !== "blocks" && head !== "pages") continue;
-        const area = head;
+        if (!AREAS.includes(head as Area)) continue;
+        const area = head as Area;
 
         if (parts[1] === "fields") {
             const [, , id, prop] = parts;
@@ -92,10 +92,10 @@ export function applyRows(project: Project, rows: Row[], languages: string[], op
         if (!target) { missing.add(`${area}.${id}`); continue; }
         if (prop === "name" || prop === "description") {
             setLocalized(target.file, target.node, prop, row.values, row.key, "name-updated");
-        } else if (prop === "fieldGroups" && groupId) {
-            const groups = target.node.get("fieldGroups");
+        } else if ((GROUP_PROPS as readonly string[]).includes(prop) && groupId) {
+            const groups = target.node.get(prop);
             const group = isSeq(groups) ? (groups.items.find(g => isMap(g) && String(g.get("id")) === groupId) as YAMLMap | undefined) : undefined;
-            if (!group) { missing.add(`${area}.${id}.fieldGroups.${groupId}`); continue; }
+            if (!group) { missing.add(`${area}.${id}.${prop}.${groupId}`); continue; }
             setLocalized(target.file, group, "name", row.values, row.key, "name-updated");
         }
     }
